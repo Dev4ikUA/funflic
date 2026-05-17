@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayerIn Info board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Загальні налаштування */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Задній фон: текстура бруду. */
+            background-image: url('https://static.wikia.nocookie.net/minecraft_gamepedia/images/e/ee/Dirt_%28texture%29_JE1_BE1.png/revision/latest?cb=20220403185110');
+            background-size: 64px; 
+            background-repeat: repeat;
+            /* Ефект затемнення фону, як у грі */
+            background-blend-mode: multiply;
+            background-color: #4a4a4a;
+            
+            /* Налаштування тексту */
+            font-family: 'VT323', monospace;
+            font-size: 24px;
+            color: #AAAAAA; 
+            text-align: center;
+            image-rendering: pixelated; 
+            user-select: none;
+        }
+
+        /* Контейнер для центрування */
+        .menu-container {
+            max-width: 700px;
+            padding: 20px;
+        }
+
+        /* Заголовки та текст з тінню Minecraft */
+        h1 {
+            color: #FFFFFF;
+            font-size: 32px;
+            margin-bottom: 25px;
+            font-weight: normal;
+            text-shadow: 3px 3px 0px #3F3F3F;
+        }
+
+        p {
+            margin: 10px 0;
+            text-shadow: 2px 2px 0px #2a2a2a;
+        }
+
+        /* Кольори тексту */
+        .nickname { color: #55FF55; text-shadow: 2px 2px 0px #153F15; }
+        .server-ip { color: #AAAAAA; text-shadow: 2px 2px 0px #2A2A2A; }
+        .offline-status { color: #FF5555; text-shadow: 2px 2px 0px #3F1515; font-size: 28px; margin: 20px 0; }
+        .free-ram { color: #55FF55; text-shadow: 2px 2px 0px #153F15; }
+        .bold-white { color: #FFFFFF; text-shadow: 2px 2px 0px #3F3F3F; }
+        
+        /* Стилізація текстового посилання */
+        .link { 
+            color: #55FF55; 
+            text-decoration: underline; 
+            text-shadow: 2px 2px 0px #153F15;
+            cursor: pointer;
+        }
+        .link:hover { color: #AAFFAA; }
+
+        /* Стилізація кнопки Minecraft (тепер це теґ <a>, що працює як кнопка) */
+        .mc-button {
+            display: inline-block;
+            margin-top: 30px;
+            width: 400px;
+            padding: 10px 0;
+            font-family: 'VT323', monospace;
+            font-size: 26px;
+            color: #E0E0E0;
+            text-shadow: 2px 2px 0px #323232;
+            text-align: center;
+            text-decoration: none; /* Прибираємо стандартне підкреслення посилання */
+            background-color: #9e9e9e;
+            
+            /* Рамка кнопки (імітація 3D ефекту) */
+            border: 3px solid #000000;
+            border-top-color: #fff;
+            border-left-color: #fff;
+            border-right-color: #555;
+            border-bottom-color: #555;
+            
+            box-shadow: inset -3px -3px 0px #555, inset 3px 3px 0px #fff;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        /* Ефект наведення на кнопку */
+        .mc-button:hover {
+            background-color: #7c8cc4;
+            color: #ffffa0;
+            text-shadow: 2px 2px 0px #24283c;
+            border-top-color: #e0e6ff;
+            border-left-color: #e0e6ff;
+            border-right-color: #3c4460;
+            border-bottom-color: #3c4460;
+            box-shadow: inset -3px -3px 0px #3c4460, inset 3px 3px 0px #e0e6ff;
+        }
+
+        /* Ефект натискання */
+        .mc-button:active {
+            border-top-color: #555;
+            border-left-color: #555;
+            border-right-color: #fff;
+            border-bottom-color: #fff;
+            box-shadow: inset -3px -3px 0px #fff, inset 3px 3px 0px #555;
+            padding-top: 12px;
+            padding-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-container">
+        <h1>PlayerIn Info board</h1>
+        
+        <p>Hello <span class="nickname">Viewer!</span></p>
+        <p class="server-ip">You are on PlayerIn info board.</p>
+        
+        <p class="offline-status">Connect to this server via that site link</p>
+        
+        <p>
+            Get news for <span class="free-ram">PlayerIn</span> 
+            <span class="bold-white">right now!</span> 
+            &gt; <a href="https://discord.gg/D4a6TBaNJR" target="_blank" class="link">https://discord.gg/D4a6TBaNJR</a>
+        </p>
+        
+        <a href="https://discord.gg/D4a6TBaNJR" target="_blank" class="mc-button">Join Discord Server</a>
+    </div>
+
+</body>
+</html>
