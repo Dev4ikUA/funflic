@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SaturnX — Windows 10 UWP App</title>
+  <title>SaturnX — SEGA Saturn Emulator</title>
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --accent: #0078d7; /* Класичний Windows 10 Blue (2015) */
+      --accent: #0078d7; /* Classic Windows 10 Blue (2015) */
       --accent-hover: #005a9e;
       --bg-dark: #1f1f1f;
       --panel-bg: #2b2b2b;
@@ -23,7 +23,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      border-radius: 0 !important; /* Ранній UWP: строго 0px кути */
+      border-radius: 0 !important; /* Early UWP: Strict 0px sharp corners */
     }
 
     body {
@@ -303,41 +303,41 @@
 
   <main class="dashboard-container">
     
-    <!-- Основний блок -->
+    <!-- Main Content -->
     <div class="main-content">
       <div class="hero">
-        <p>Нативний ПК-емулятор Sega Saturn для Windows. Зібраний за допомогою MSVC на основі ядра Beetle Saturn для досягнення максимальної продуктивності та низької затримки.</p>
+        <p>Native Sega Saturn PC emulator for Windows. Built with MSVC and powered by the Beetle Saturn core to achieve maximum performance and low latency.</p>
         
         <div class="btn-group">
           <a href="https://funflic.pp.ua/apps/saturnx_0.2_RELEASE.zip" target="_blank" class="btn btn-primary">
-             Завантажити Win64 (.ZIP)
+             Download Win64 (.ZIP)
           </a>
           <a href="https://mega.nz/file/1ZBgSB6Z#NrDywrfgEDcVMGgBgZgEmDI8rftsC0oIaAPuzUomkfc" target="_blank" rel="noopener" class="btn btn-mega">
-            ☁️ Дзеркало MEGA.nz
+            ☁️ Mirror via MEGA.nz
           </a>
         </div>
       </div>
 
-      <div class="section-title">Компоненти системи</div>
+      <div class="section-title">System Components</div>
       <div class="tiles-grid">
         <div class="tile">
           <h3>Beetle Saturn Core</h3>
-          <p>Висока точність емуляції процесорів VDP1/VDP2 та контролерів CD-ROM.</p>
+          <p>High-accuracy emulation for VDP1/VDP2 processors and CD-ROM controllers.</p>
         </div>
         <div class="tile">
           <h3>MSVC Vectorization</h3>
-          <p>Оптимізована збірка Visual Studio з використанням наборів інструкцій AVX2/SSE4.2.</p>
+          <p>Optimized Visual Studio build utilizing AVX2/SSE4.2 vector instruction sets.</p>
         </div>
       </div>
     </div>
 
-    <!-- Правий блок: Live Tiles / RSS Новини -->
+    <!-- Right Sidebar: Live Tiles / RSS Updates -->
     <aside class="rss-section">
-      <div class="section-title">Оновлення (RSS)</div>
+      <div class="section-title">Latest Updates (RSS)</div>
       <div class="rss-container" id="rss-feed">
-        <!-- Резервна плитка під час завантаження -->
+        <!-- Placeholder Tile while loading -->
         <div class="live-tile">
-          <div class="tile-title">Завантаження новин...</div>
+          <div class="tile-title">Loading feed...</div>
           <div class="tile-date">RSS Feed</div>
         </div>
       </div>
@@ -346,7 +346,7 @@
   </main>
 
   <footer>
-    <p>SaturnX — проєкт з відкритим вихідним кодом. Sega Saturn є зареєстрованою торговою маркою SEGA Corporation.</p>
+    <p>SaturnX is an open-source project. Sega Saturn is a registered trademark of SEGA Corporation.</p>
   </footer>
 
   <script>
@@ -362,14 +362,14 @@
           container.innerHTML = '';
           
           data.items.slice(0, 3).forEach((item, index) => {
-            const date = new Date(item.pubDate).toLocaleDateString('uk-UA', {
+            const date = new Date(item.pubDate).toLocaleDateString('en-US', {
               day: 'numeric', month: 'short'
             });
             
             const tile = document.createElement('a');
             tile.href = item.link;
             tile.target = '_blank';
-            // Перша новина виділяється як Акцентна Live Tile
+            // First item highlights as the main Live Tile
             tile.className = index === 0 ? 'live-tile' : 'live-tile live-tile-sub';
             
             tile.innerHTML = `
@@ -379,18 +379,18 @@
             container.appendChild(tile);
           });
         } else {
-          throw new Error('No items');
+          throw new Error('No items found');
         }
       } catch (err) {
-        // Резервний плитковий список (Windows 10 Live Tiles Style)
+        // Fallback live tiles (Windows 10 Metro Style)
         container.innerHTML = `
           <a href="#" class="live-tile">
-            <div class="tile-title">Реліз SaturnX v0.2-BETA випущено</div>
-            <div class="tile-date">Сьогодні</div>
+            <div class="tile-title">SaturnX v0.2-BETA Release Available</div>
+            <div class="tile-date">September 2, 2026</div>
           </a>
           <a href="#" class="live-tile live-tile-sub">
-            <div class="tile-title">Додано підтримку інструкцій AVX2</div>
-            <div class="tile-date">Вчора</div>
+            <div class="tile-title">SaturnX v0.1-BETA Release</div>
+            <div class="tile-date">September 1, 2026</div>
           </a>
         `;
       }
