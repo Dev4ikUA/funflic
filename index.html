@@ -1,143 +1,354 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlayerIn Info board</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Загальні налаштування */
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* Задній фон: текстура бруду. */
-            background-image: url("dirt.webp");
-            background-repeat: repeat;
-            image-rendering: pixelated;
-            /* Ефект затемнення фону, як у грі */
-            background-blend-mode: multiply;
-            background-color: #4a4a4a;
-            
-            /* Налаштування тексту */
-            font-family: 'VT323', monospace;
-            font-size: 24px;
-            color: #AAAAAA; 
-            text-align: center;
-            image-rendering: pixelated; 
-            user-select: none;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaturnX — Native Sega Saturn Emulator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070913;
+      --card-bg: rgba(18, 22, 41, 0.75);
+      --accent-purple: #7000ff;
+      --accent-cyan: #00f0ff;
+      --mega-red: #d92727;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.08);
+    }
 
-        /* Контейнер для центрування */
-        .menu-container {
-            max-width: 700px;
-            padding: 20px;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        /* Заголовки та текст з тінню Minecraft */
-        h1 {
-            color: #FFFFFF;
-            font-size: 32px;
-            margin-bottom: 25px;
-            font-weight: normal;
-            text-shadow: 3px 3px 0px #3F3F3F;
-        }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 20% 15%, rgba(112, 0, 255, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(0, 240, 255, 0.1) 0%, transparent 40%);
+      line-height: 1.6;
+    }
 
-        p {
-            margin: 10px 0;
-            text-shadow: 2px 2px 0px #2a2a2a;
-        }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border-color);
+    }
 
-        /* Кольори тексту */
-        .nickname { color: #55FF55; text-shadow: 2px 2px 0px #153F15; }
-        .server-ip { color: #AAAAAA; text-shadow: 2px 2px 0px #2A2A2A; }
-        .offline-status { color: #FF5555; text-shadow: 2px 2px 0px #3F1515; font-size: 28px; margin: 20px 0; }
-        .free-ram { color: #55FF55; text-shadow: 2px 2px 0px #153F15; }
-        .bold-white { color: #FFFFFF; text-shadow: 2px 2px 0px #3F3F3F; }
-        
-        /* Стилізація текстового посилання */
-        .link { 
-            color: #55FF55; 
-            text-decoration: underline; 
-            text-shadow: 2px 2px 0px #153F15;
-            cursor: pointer;
-        }
-        .link:hover { color: #AAFFAA; }
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+    }
 
-        /* Стилізація кнопки Minecraft (тепер це теґ <a>, що працює як кнопка) */
-        .mc-button {
-            display: inline-block;
-            margin-top: 30px;
-            width: 400px;
-            padding: 10px 0;
-            font-family: 'VT323', monospace;
-            font-size: 26px;
-            color: #E0E0E0;
-            text-shadow: 2px 2px 0px #323232;
-            text-align: center;
-            text-decoration: none; /* Прибираємо стандартне підкреслення посилання */
-            background-color: #9e9e9e;
-            
-            /* Рамка кнопки (імітація 3D ефекту) */
-            border: 3px solid #000000;
-            border-top-color: #fff;
-            border-left-color: #fff;
-            border-right-color: #555;
-            border-bottom-color: #555;
-            
-            box-shadow: inset -3px -3px 0px #555, inset 3px 3px 0px #fff;
-            box-sizing: border-box;
-            cursor: pointer;
-        }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
 
-        /* Ефект наведення на кнопку */
-        .mc-button:hover {
-            background-color: #7c8cc4;
-            color: #ffffa0;
-            text-shadow: 2px 2px 0px #24283c;
-            border-top-color: #e0e6ff;
-            border-left-color: #e0e6ff;
-            border-right-color: #3c4460;
-            border-bottom-color: #3c4460;
-            box-shadow: inset -3px -3px 0px #3c4460, inset 3px 3px 0px #e0e6ff;
-        }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
 
-        /* Ефект натискання */
-        .mc-button:active {
-            border-top-color: #555;
-            border-left-color: #555;
-            border-right-color: #fff;
-            border-bottom-color: #fff;
-            box-shadow: inset -3px -3px 0px #fff, inset 3px 3px 0px #555;
-            padding-top: 12px;
-            padding-bottom: 8px;
-        }
-    </style>
+    .nav-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(112, 0, 255, 0.2);
+      border: 1px solid var(--accent-purple);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.2rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-purple), #5000b8);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(112, 0, 255, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(112, 0, 255, 0.6);
+    }
+
+    .btn-mega {
+      background: linear-gradient(135deg, var(--mega-red), #991b1b);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(217, 39, 39, 0.3);
+    }
+
+    .btn-mega:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(217, 39, 39, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .features {
+      max-width: 1100px;
+      margin: 40px auto 80px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 30px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s;
+    }
+
+    .card:hover {
+      border-color: rgba(0, 240, 255, 0.3);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .req-section {
+      max-width: 800px;
+      margin: 0 auto 80px;
+      padding: 0 20px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .tab-btn.active {
+      background: var(--accent-purple);
+      color: #fff;
+      border-color: var(--accent-purple);
+    }
+
+    .tab-content {
+      display: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 25px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content ul {
+      list-style: none;
+    }
+
+    .tab-content li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .tab-content li span {
+      color: var(--text-muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="menu-container">
-        <h1>PlayerIn Info board</h1>
-        
-        <p>Hello <span class="nickname">Viewer!</span></p>
-        <p class="server-ip">You are on PlayerIn info board.</p>
-        
-        <p class="offline-status">Connect to this server via that site link</p>
-        
-        <p>
-            Get news for <span class="free-ram">PlayerIn</span> 
-            <span class="bold-white">right now!</span> 
-            &gt; <a href="https://discord.gg/D4a6TBaNJR" target="_blank" class="link">https://discord.gg/D4a6TBaNJR</a>
-        </p>
-        
-        <a href="https://discord.gg/D4a6TBaNJR" target="_blank" class="mc-button">Join Discord Server</a>
+  <nav>
+    <div class="logo">SaturnX</div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#download">Downloads</a></li>
+      <li><a href="#requirements">Requirements</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="badge">MSVC (Windows) & GCC (Linux) Optimized</div>
+    <h1>Native Sega Saturn Emulator</h1>
+    <p>SaturnX is a high-performance desktop emulator built on the Beetle Saturn core, offering ultra-low input latency and high emulation accuracy.</p>
+    
+    <div class="btn-group" id="download">
+      <a href="https://github.com" target="_blank" class="btn btn-primary">
+        🪟 Win64 Release (MSVC)
+      </a>
+      <a href="https://github.com" target="_blank" class="btn btn-secondary">
+        🐧 Linux x86_64 (GCC)
+      </a>
+      <a href="https://mega.nz" target="_blank" rel="noopener" class="btn btn-mega">
+        ☁️ Download via MEGA.nz
+      </a>
     </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>Beetle Saturn Core</h3>
+      <p>Delivers maximum rendering accuracy for VDP1/VDP2 hardware and precise emulation of the SCSP audio processor.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛠️</div>
+      <h3>MSVC & GCC Builds</h3>
+      <p>Codebase optimized with SIMD vector instructions (AVX2/SSE4.2) using native MSVC and GCC compilers.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎮</div>
+      <h3>Low Input Lag</h3>
+      <p>Direct processing via DirectInput/XInput and SDL2 to ensure minimal controller response time.</p>
+    </div>
+  </section>
+
+  <section class="req-section" id="requirements">
+    <h2 style="text-align: center; font-family: 'Orbitron'; margin-bottom: 20px;">System Requirements</h2>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('min')">Minimum</button>
+      <button class="tab-btn" onclick="switchTab('rec')">Recommended</button>
+    </div>
+
+    <div id="min" class="tab-content active">
+      <ul>
+        <li><b>OS:</b> <span>Windows 10 / Linux 64-bit</span></li>
+        <li><b>CPU:</b> <span>Intel Core i5 (4th Gen) / AMD FX-8350 (AVX support)</span></li>
+        <li><b>RAM:</b> <span>4 GB RAM</span></li>
+        <li><b>GPU:</b> <span>OpenGL 3.3 / Vulkan 1.1</span></li>
+        <li><b>Compiler:</b> <span>MSVC v142+ / GCC 9+</span></li>
+      </ul>
+    </div>
+
+    <div id="rec" class="tab-content">
+      <ul>
+        <li><b>OS:</b> <span>Windows 11 / Ubuntu 22.04+</span></li>
+        <li><b>CPU:</b> <span>Intel Core i5-11400 / AMD Ryzen 5 3600+</span></li>
+        <li><b>RAM:</b> <span>8 GB RAM</span></li>
+        <li><b>GPU:</b> <span>Nvidia GTX 1060 / AMD RX 580 (Vulkan)</span></li>
+        <li><b>Compiler:</b> <span>MSVC v143+ / GCC 12+</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>SaturnX is an independent open-source project. Sega Saturn is a registered trademark of SEGA Corporation.</p>
+  </footer>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+      event.target.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
