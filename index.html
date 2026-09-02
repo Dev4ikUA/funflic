@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SaturnX — Native Sega Saturn Emulator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>SaturnX v0.2-BETA — Native Sega Saturn Emulator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #070913;
-      --card-bg: rgba(18, 22, 41, 0.75);
-      --accent-purple: #7000ff;
+      --bg-dark: #0a0b10;
+      --panel-bg: #121520;
+      --panel-border: #2a3148;
       --accent-cyan: #00f0ff;
-      --mega-red: #d92727;
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --border-color: rgba(255, 255, 255, 0.08);
+      --accent-green: #00ff66;
+      --accent-orange: #ff9900;
+      --mega-red: #cc2222;
+      --text-main: #d0d7e5;
+      --text-dim: #6c7a9c;
     }
 
     * {
@@ -26,62 +27,92 @@
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Share Tech Mono', monospace;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      line-height: 1.5;
+      /* CRT scanline effect overlay */
       background-image: 
-        radial-gradient(circle at 50% 20%, rgba(112, 0, 255, 0.15) 0%, transparent 50%);
-      line-height: 1.6;
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%),
+        radial-gradient(circle at 50% 30%, rgba(0, 240, 255, 0.05) 0%, transparent 70%);
+      background-size: 100% 4px, 100% 100%;
     }
 
     header {
-      padding: 30px 20px;
+      padding: 25px 20px 10px;
       text-align: center;
+      border-bottom: 2px solid var(--panel-border);
+      background: rgba(18, 21, 32, 0.8);
     }
 
     .logo {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2.2rem;
+      font-size: 2.8rem;
       font-weight: 900;
-      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--accent-cyan);
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.6), 2px 2px 0px #000;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .sub-logo {
+      font-size: 0.85rem;
+      color: var(--accent-orange);
       letter-spacing: 2px;
+      margin-top: -5px;
     }
 
     .hero {
       text-align: center;
-      padding: 20px 20px 40px;
-      max-width: 800px;
-      margin: 0 auto;
+      padding: 30px 20px;
+      max-width: 760px;
+      margin: 20px auto 0;
+    }
+
+    .badge-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
     }
 
     .badge {
       display: inline-block;
-      padding: 6px 14px;
-      background: rgba(112, 0, 255, 0.2);
-      border: 1px solid var(--accent-purple);
-      border-radius: 20px;
-      font-size: 0.85rem;
+      padding: 4px 10px;
+      background: #000;
+      border: 1px solid var(--accent-cyan);
+      font-size: 0.8rem;
       color: var(--accent-cyan);
-      margin-bottom: 20px;
-      font-weight: 600;
+      text-transform: uppercase;
+      box-shadow: 3px 3px 0px rgba(0, 240, 255, 0.2);
+    }
+
+    .badge-status {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+      box-shadow: 3px 3px 0px rgba(255, 153, 0, 0.2);
     }
 
     .hero h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3rem;
-      font-weight: 800;
-      margin-bottom: 15px;
-      line-height: 1.2;
+      font-family: 'VT323', monospace;
+      font-size: 2.8rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 0px #000;
     }
 
     .hero p {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      margin-bottom: 35px;
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      margin-bottom: 30px;
+      border-left: 3px solid var(--accent-cyan);
+      padding-left: 12px;
+      text-align: left;
+      background: rgba(0, 240, 255, 0.02);
     }
 
     .btn-group {
@@ -92,74 +123,107 @@
     }
 
     .btn {
-      padding: 14px 28px;
-      border-radius: 10px;
+      padding: 12px 22px;
+      border-radius: 0px;
+      font-family: 'Share Tech Mono', monospace;
       font-weight: 700;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      transition: all 0.25s ease;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.15s ease;
+      position: relative;
+      cursor: pointer;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent-purple), #5000b8);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(112, 0, 255, 0.4);
+      background: #102a3a;
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan);
+      box-shadow: 4px 4px 0px #000;
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 25px rgba(112, 0, 255, 0.6);
+      background: var(--accent-cyan);
+      color: #000;
+      box-shadow: 2px 2px 0px #000;
+      transform: translate(2px, 2px);
     }
 
     .btn-mega {
-      background: linear-gradient(135deg, var(--mega-red), #991b1b);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(217, 39, 39, 0.3);
+      background: #2a1010;
+      color: #ff6b6b;
+      border: 1px solid var(--mega-red);
+      box-shadow: 4px 4px 0px #000;
     }
 
     .btn-mega:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 25px rgba(217, 39, 39, 0.5);
+      background: var(--mega-red);
+      color: #fff;
+      box-shadow: 2px 2px 0px #000;
+      transform: translate(2px, 2px);
     }
 
     .features {
-      max-width: 1000px;
+      max-width: 800px;
       margin: 20px auto 40px;
       padding: 0 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 15px;
     }
 
     .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 25px;
-      backdrop-filter: blur(12px);
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      padding: 18px;
+      position: relative;
+      box-shadow: 4px 4px 0px #000;
+    }
+
+    .card::before {
+      content: "SYS_LOG";
+      position: absolute;
+      top: -9px;
+      right: 12px;
+      background: var(--bg-dark);
+      padding: 0 6px;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      border: 1px solid var(--panel-border);
     }
 
     .card h3 {
-      font-family: 'Orbitron', sans-serif;
-      margin-bottom: 10px;
-      font-size: 1.1rem;
-      color: var(--accent-cyan);
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--accent-green);
+      letter-spacing: 1px;
     }
 
     .card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
+      color: var(--text-dim);
+      font-size: 0.85rem;
     }
 
     footer {
       text-align: center;
-      padding: 30px 20px;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-muted);
-      font-size: 0.85rem;
+      padding: 20px;
+      border-top: 1px solid var(--panel-border);
+      color: var(--text-dim);
+      font-size: 0.75rem;
+      background: rgba(10, 11, 16, 0.9);
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--accent-green);
+      margin-right: 6px;
+      box-shadow: 0 0 5px var(--accent-green);
     }
   </style>
 </head>
@@ -167,40 +231,43 @@
 
   <header>
     <div class="logo">SaturnX</div>
+    <div class="sub-logo">[SEGA SATURN SYSTEM EMULATION PROJECT]</div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="badge">MSVC Windows Build</div>
+      <div class="badge-container">
+        <div class="badge"><span class="status-dot"></span>MSVC x64</div>
+        <div class="badge badge-status">BUILD v0.2-BETA</div>
+      </div>
+
       <h1>Native Sega Saturn Emulator</h1>
-      <p>High-performance Windows emulator built on the Beetle Saturn core.</p>
+      <p>System Test Environment // Optimized C++ core built around the Beetle Saturn engine for low-latency Win32/x64 architectures.</p>
       
       <div class="btn-group">
-        <!-- Замініть посилання на прямо завантаження вашого .exe / .zip -->
         <a href="https://funflic.pp.ua/apps/saturnx_0.2_RELEASE.zip" target="_blank" class="btn btn-primary">
-          🪟 Download Win64 (MSVC)
+          [💾] Download Win64 (MSVC)
         </a>
-        <!-- Замініть посилання на вашу папку в MEGA.nz -->
         <a href="https://mega.nz/file/1ZBgSB6Z#NrDywrfgEDcVMGgBgZgEmDI8rftsC0oIaAPuzUomkfc" target="_blank" rel="noopener" class="btn btn-mega">
-          ☁️ Download via MEGA.nz
+          [☁] Mirror (MEGA.nz)
         </a>
       </div>
     </section>
 
     <section class="features">
       <div class="card">
-        <h3>⚡ Beetle Saturn Core</h3>
-        <p>Maximum rendering accuracy for VDP1/VDP2 hardware.</p>
+        <h3>> VDP1/VDP2 ACCURACY</h3>
+        <p>Direct emulation of dual SH-2 architecture with precise polygonal projection and VDP2 layer blending mechanics.</p>
       </div>
       <div class="card">
-        <h3>🛠️ MSVC Optimized</h3>
-        <p>Compiled natively with Visual Studio using SIMD vector instructions (AVX2/SSE4.2).</p>
+        <h3>> SIMD AVX2 OPTIMIZED</h3>
+        <p>Compiled via Visual Studio C++ toolchain with dedicated vectorization instructions for steady 60 FPS performance.</p>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>SaturnX is an open-source project. Sega Saturn is a trademark of SEGA Corporation.</p>
+    <p>SaturnX Project / Non-commercial software emulator. Sega Saturn is a registered trademark of SEGA Corporation.</p>
   </footer>
 
 </body>
