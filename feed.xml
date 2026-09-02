@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2000/svg">
+  <channel>
+    <title>SaturnX — Project News &amp; Updates</title>
+    <link>https://funflic.pp.ua/</link>
+    <description>Latest release builds and news for SaturnX native Sega Saturn emulator.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Sep 2026 20:35:00 +0300</lastBuildDate>
+
+    <item>
+      <title>SaturnX v0.2-BETA Released (MSVC Win64 Build)</title>
+      <link>https://funflic.pp.ua/apps/saturnx_0.2_RELEASE.zip</link>
+      <description>New beta build compiled with Visual Studio MSVC, featuring AVX2/SSE4.2 SIMD vectorization and Beetle Saturn core core integrations.</description>
+      <pubDate>Wed, 02 Sep 2026 21:30:00 +0300</pubDate>
+      <guid>https://funflic.pp.ua/apps/saturnx_0.2_RELEASE.zip</guid>
+    </item>
+
+    <item>
+      <title>SaturnX v0.1-BETA Builded (MSVC Win64 Build)</title>
+      <description>First working build.</description>
+      <pubDate>Wed, 01 Sep 2026 22:00:00 +0300</pubDate>
+    </item>
+  </channel>
+</rss>
