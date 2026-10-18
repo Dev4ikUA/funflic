@@ -3,19 +3,19 @@
     "name": "Calculator",
     "version": "1.0",
     "description": "Простий консольний калькулятор для SunOS",
-    "url": "https://funflic.pp.ua/apps/apps/Calculator.jar"
+    "url": "https://funflic.pp.ua/apps/Calculator.jar"
   },
   {
     "name": "GuessGame",
     "version": "1.0",
     "description": "Гра 'Вгадай число' проти комп'ютера",
-    "url": "https://funflic.pp.ua/apps/apps/GuessGame.jar"
+    "url": "https://funflic.pp.ua/apps/GuessGame.jar"
   },
   {
     "name": "Ping",
     "version": "1.1",
     "description": "Утиліта для перевірки мережевого з'єднання",
-    "url": "https://funflic.pp.ua/apps/apps/Ping.jar"
+    "url": "https://funflic.pp.ua/apps/Ping.jar"
   },
   {
     "name": "SimpleNotepad",
@@ -27,6 +27,6 @@
     "name": "Time",
     "version": "1.0",
     "description": "Виведення поточного системного часу та дати",
-    "url": "https://funflic.pp.ua/apps/apps/Time.jar"
+    "url": "https://funflic.pp.ua/apps/Time.jar"
   }
 ]
